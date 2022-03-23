@@ -1,0 +1,108 @@
+<apex:page controller="InvoicePDFController" applyHtmlTag="false" showHeader="false" renderAs="PDF">
+    <html>
+        <head>
+            <style>
+                * {
+                box-sizing: border-box;
+                }
+                
+                .heading {
+                font-weight: bold;
+                }
+                
+                .heading--main {
+                font-size: 36px;
+                }
+                
+                .heading--sub {
+                font-size: 21px;
+                }
+                
+                .box--half {
+                float: left;
+                width: 50%;
+                }
+                
+                .box--full {
+                float: left;
+                width: 100%;
+                }
+                
+                table {
+                border-collapse: collapse;
+                margin-top: 25px;
+                width: 100%;
+                }
+                
+                th {
+                background-color: #92d5f0;
+                font-align: left;
+                font-size: 14px;
+                font-weight: bold;
+                padding: 5px;
+                }
+                
+                td {
+                font-size: 12px;
+                padding: 5px;
+                text-align: left;
+                width: 33%;
+                }                
+            </style>
+        </head>
+        <body>
+            <center>
+                <h1 class="heading heading--main">Résumé de l'opportunité</h1>
+            </center>
+            <div class="box--half">
+                <h2 class="heading heading--sub">Facturer par:</h2>
+                <span>{!account.Name}</span>
+                <br />
+                <span>{!account.BillingStreet}</span>
+                <br />
+                <span>{!account.BillingCity}&nbsp;{!account.BillingState}&nbsp;{!account.BillingPostalCode}</span>
+            </div>
+            <div class="box-half">
+                
+            </div>
+            <div class="box-full">
+                
+                <table>
+                    
+                    <apex:repeat value="{!wonOppList}" var="wonOpp">
+                        <tr>
+                            <td>{!wonOpp.Name}</td>
+                            <td>{!wonOpp.Amount}</td>
+                            <td>{!MONTH(wonOpp.CloseDate)}-{!DAY(wonOpp.CloseDate)}-{!YEAR(wonOpp.CloseDate)}</td>
+                        </tr>
+                    </apex:repeat>
+                </table>
+            </div>
+            <div class="box--full">
+                
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                    <apex:repeat value="{!notWonOppList}" var="notWonOpp">
+                        <tr>
+                            <td>{!notWonOpp.Name}</td>
+                            <td>{!notWonOpp.Amount}</td>
+                            <td>{!notWonOpp.StageName}</td>
+                        </tr>
+                    </apex:repeat>
+                    <!-- signature -->
+            
+            <br />
+            <br />
+            Nom et signature
+                </table>
+            </div>
+            
+        </body>
+        
+            
+    </html>
+</apex:page>
